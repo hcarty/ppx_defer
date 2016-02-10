@@ -1,8 +1,11 @@
 # ppx_defer
 
-This is an OCaml language extension implementing a somewhat Go-like
+This is an OCaml language extension implementing a somewhat Go-ish
 `[%defer expr1]; expr2` which will defer the evaluation of `expr1` until after
-`expr2`.
+`expr2`.  `expr1` will still be evaluated if `expr2` raises an exception.
+
+The implementation is based purely on moving syntax around so ppx\_defer is not
+as powerful or safe as Go's `defer`.
 
 Thanks to Drup for guidance in figuring out ppx details!
 
