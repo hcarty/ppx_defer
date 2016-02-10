@@ -1,0 +1,2 @@
+description = "Defer expressions until the end of the current scope"
+ppx = "./ppx_defer"
