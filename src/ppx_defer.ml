@@ -37,6 +37,7 @@ let defer_mapper _args =
       fun mapper expr ->
         match expr with
         | [%expr [%defer [%e? later]] ; [%e? now]] ->
+          let later, now = mapper.expr mapper later, mapper.expr mapper now in
           let generated = make_defer ~later ~now in
           let pexp_loc =
             (* [loc_ghost] tells the compiler and other tools than this is
