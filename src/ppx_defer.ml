@@ -30,6 +30,12 @@ let make_defer ~later ~now =
       [%e later]; raise __ppx_defer_actual_exception
   ] [@metaloc now.pexp_loc]
 
+let make_defer_lwt ~later ~now =
+  (* Evaluate [now] then [later], even if [now] raises an exception *)
+  [%expr
+    Lwt.finalize (fun () -> [%e now]) (fun () -> [%e later])
+  ] [@metaloc now.pexp_loc]
+
 let defer_mapper _args =
   {
     default_mapper with
@@ -39,6 +45,15 @@ let defer_mapper _args =
         | [%expr [%defer [%e? later]] ; [%e? now]] ->
           let later, now = mapper.expr mapper later, mapper.expr mapper now in
           let generated = make_defer ~later ~now in
+          let pexp_loc =
+            (* [loc_ghost] tells the compiler and other tools than this is
+               generated code *)
+            { generated.pexp_loc with Location.loc_ghost = true }
+          in
+          { generated with pexp_loc }
+        | [%expr [%defer.lwt [%e? later]] ; [%e? now]] ->
+          let later, now = mapper.expr mapper later, mapper.expr mapper now in
+          let generated = make_defer_lwt ~later ~now in
           let pexp_loc =
             (* [loc_ghost] tells the compiler and other tools than this is
                generated code *)

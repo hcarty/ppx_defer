@@ -4,8 +4,7 @@ This is an OCaml language extension implementing a somewhat Go-ish
 `[%defer expr1]; expr2` which will defer the evaluation of `expr1` until after
 `expr2`.  `expr1` will still be evaluated if `expr2` raises an exception.
 
-The implementation is based purely on moving syntax around so ppx\_defer is not
-as powerful or safe as Go's `defer`.
+If you are using Lwt you can use `[%defer.lwt expr1]; expr2`.
 
 Thanks to Drup for guidance in figuring out ppx details!
 
@@ -19,3 +18,5 @@ let () =
   let bytes = really_input_string ic length in
   print_endline bytes
 ```
+
+See the `examples/` directory for more examples.
