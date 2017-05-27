@@ -2,4 +2,4 @@ all:
 	jbuilder build
 
 clean:
-	rm -rf _build/
+	rm -rf _build/ *.install
