@@ -1,3 +1,5 @@
+open Migrate_parsetree
+open OCaml_404.Ast
 open Ast_mapper
 open Parsetree
 
@@ -36,7 +38,7 @@ let make_defer_lwt ~later ~now =
     Lwt.finalize (fun () -> [%e now]) (fun () -> [%e later])
   ] [@metaloc now.pexp_loc]
 
-let defer_mapper _args =
+let defer_mapper =
   {
     default_mapper with
     expr = (
@@ -65,4 +67,6 @@ let defer_mapper _args =
     )
   }
 
-let () = register "defer" defer_mapper
+let () =
+  Driver.register ~name:"ppx_defer" Versions.ocaml_404
+    (fun _config _cookies -> defer_mapper)

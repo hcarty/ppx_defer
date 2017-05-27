@@ -1,3 +1,0 @@
-PKG ppx_tools.metaquot lwt
-S src/
-B _build/src/
