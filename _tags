@@ -1,4 +1,0 @@
-true: bin_annot, safe_string
-
-<src/*.{ml,mli,byte,native}>: package(ppx_tools.metaquot)
-<examples/*.{ml,byte,native}>: debug

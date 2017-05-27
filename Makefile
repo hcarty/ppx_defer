@@ -1,5 +1,5 @@
 all:
-	ocaml pkg/build.ml native=true native-dynlink=true
+	jbuilder build
 
 clean:
-	ocamlbuild -clean
+	rm -rf _build/ *.install

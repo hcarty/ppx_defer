@@ -1,4 +1,5 @@
 _build/
+.merlin
 *.native
 *.byte
-ppx_defer.install
+*.install
