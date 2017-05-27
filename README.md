@@ -1,4 +1,4 @@
-# ppx_defer
+# ppx_defer - Go-like `[%defer later]; now` syntax.
 
 This is an OCaml language extension implementing a somewhat Go-ish
 `[%defer expr1]; expr2` which will defer the evaluation of `expr1` until after
