@@ -8,7 +8,7 @@ bug-reports: "https://github.com/hcarty/ppx_defer/issues"
 dev-repo: "https://github.com/hcarty/ppx_defer.git"
 build:[ "jbuilder" "build" "-p" name "-j" jobs ]
 depends: [
-  "jbuilder" {build & >= "1.0.0+beta9"}
+  "jbuilder" {build & >= "1.0+beta9"}
   "ocaml-migrate-parsetree"
   "ppx_tools_versioned"
 ]
