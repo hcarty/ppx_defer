@@ -7,6 +7,7 @@
   (modules (ppx_defer))
   (libraries (compiler-libs.common
               ocaml-migrate-parsetree
-              ppx_tools_versioned))
+              ppx_tools_versioned
+              ppx_tools_versioned.metaquot_404))
   (kind ppx_rewriter)
   (preprocess (pps (ppx_tools_versioned.metaquot_404)))))
