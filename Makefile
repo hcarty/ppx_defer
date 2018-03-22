@@ -1,5 +1,16 @@
+.PHONY: all clean examples repl test
+
 all:
-	jbuilder build
+	jbuilder build --dev
 
 clean:
-	rm -rf _build/ *.install
+	jbuilder clean
+
+examples:
+	jbuilder build @example --dev
+
+repl:
+	jbuilder utop src -- -require ppx_defer
+
+test: examples
+	jbuilder exec examples/ic.exe

@@ -3,3 +3,7 @@
 (executable
  ((name ic)
   (preprocess (pps (ppx_defer)))))
+
+(alias
+ ((name example)
+  (deps (ic.exe))))
