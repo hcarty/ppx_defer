@@ -1,16 +1,10 @@
-.PHONY: all clean examples repl test
+.PHONY: all clean test
 
 all:
-	jbuilder build --dev
+	dune build
 
 clean:
-	jbuilder clean
+	dune clean
 
-examples:
-	jbuilder build @example --dev
-
-repl:
-	jbuilder utop src -- -require ppx_defer
-
-test: examples
-	jbuilder exec examples/ic.exe
+test:
+	dune runtest

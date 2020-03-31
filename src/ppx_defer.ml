@@ -1,5 +1,5 @@
 open Migrate_parsetree
-open OCaml_406.Ast
+open OCaml_408.Ast
 open Ast_mapper
 open Parsetree
 
@@ -68,5 +68,5 @@ let defer_mapper =
   }
 
 let () =
-  Driver.register ~name:"ppx_defer" Versions.ocaml_406
+  Driver.register ~name:"ppx_defer" Versions.ocaml_408
     (fun _config _cookies -> defer_mapper)
