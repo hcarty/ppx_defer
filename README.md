@@ -37,8 +37,3 @@ This will `close_in ic` at the end of the current expression, even if an
 exception is raised.
 
 See the `examples/` directory for more examples.
-
-## Trying it out from source
-
-`make repl` will start a custom utop session with the current source tree's
-version of the ppx extension loaded and ready to use.

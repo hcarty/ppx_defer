@@ -1,14 +1,15 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "Hezekiah M. Carty <hez@0ok.org>"
 authors: [ "Hezekiah M. Carty <hez@0ok.org>" ]
 license: "MIT"
+synopsis: "Go-like [%defer later]; now syntax"
 homepage: "https://github.com/hcarty/ppx_defer"
 bug-reports: "https://github.com/hcarty/ppx_defer/issues"
-dev-repo: "https://github.com/hcarty/ppx_defer.git"
-build:[ "jbuilder" "build" "-p" name "-j" jobs ]
+dev-repo: "git+https://github.com/hcarty/ppx_defer.git"
+build:[ "dune" "build" "-p" name "-j" jobs ]
 depends: [
-  "jbuilder" {build & >= "1.0+beta9"}
+  "ocaml" {>= "4.02.3"}
+  "dune" {>= "2.0"}
   "ocaml-migrate-parsetree"
   "ppx_tools_versioned"
 ]
-available: [ ocaml-version >= "4.02.3" ]
