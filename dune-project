@@ -16,5 +16,5 @@
  (depends
   (ocaml (>= 4.02.3))
   (dune (>= 2.0))
-  ocaml-migrate-parsetree
+  (ocaml-migrate-parsetree (>= 1.5.0))
   ppx_tools_versioned))
