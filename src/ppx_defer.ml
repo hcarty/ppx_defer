@@ -27,7 +27,7 @@ let make_defer ~later ~now =
   [%expr
     match [%e now] with
     | __ppx_defer_actual_result ->
-      [%e later]; __ppx_defer_actual_result
+      [%e later]; __ppx_defer_actual_resul
     | exception __ppx_defer_actual_exception ->
       [%e later]; raise __ppx_defer_actual_exception
   ] [@metaloc now.pexp_loc]
