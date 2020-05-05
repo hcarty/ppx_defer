@@ -1,5 +1,7 @@
 # ppx_defer - Go-like `[%defer later]; now` syntax.
 
+![Build status](https://github.com/hcarty/ppx_defer/workflows/Build%20and%20test%20ppx_defer/badge.svg)
+
 This is an OCaml language extension implementing a somewhat Go-ish
 `[%defer expr1]; expr2` which will defer the evaluation of `expr1` until after
 `expr2`.  `expr1` will still be evaluated if `expr2` raises an exception.
