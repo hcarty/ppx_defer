@@ -3,7 +3,7 @@
  (public_name ppx_defer)
  (synopsis "Defer evaluation of expressions")
  (modules ppx_defer)
- (libraries compiler-libs.common ocaml-migrate-parsetree)
+ (libraries ppxlib)
  (kind ppx_rewriter)
  (preprocess
-  (pps ppx_tools_versioned.metaquot_410)))
+  (pps ppxlib.metaquot)))
