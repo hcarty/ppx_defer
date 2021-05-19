@@ -14,9 +14,8 @@
  (name ppx_defer)
  (synopsis "Go-like [%defer later]; now syntax")
  (depends
-  (ocaml (>= 4.02.3))
+  (ocaml (>= 4.11.0))
   (dune (>= 2.0))
   (lwt :with-test)
   (lwt_ppx :with-test)
-  (ocaml-migrate-parsetree (>= 1.5.0))
-  ppx_tools_versioned))
+  (ppxlib (>= 0.12.0))))
