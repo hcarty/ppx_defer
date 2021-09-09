@@ -1,3 +1,8 @@
+# v0.5.0
+
+* Move to ppxlib (@anuragsoni)
+* Add github action for automated testing
+
 # v0.4.0
 
 * Upgrade to dune
