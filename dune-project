@@ -1,4 +1,4 @@
-(lang dune 2.0)
+(lang dune 2.1)
 (name ppx_defer)
 (allow_approximate_merlin)
 
@@ -18,7 +18,7 @@
   (dune (>= 2.0))
   (lwt :with-test)
   (lwt_ppx :with-test)
-  (core :with-test)
-  (async :with-test)
-  (core_unix :with-test)
+  (core (and :with-test (<> os "win32")))
+  (async (and :with-test (<> os "win32")))
+  (core_unix (and :with-test (<> os "win32")))
   (ppxlib (>= 0.12.0))))
