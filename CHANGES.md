@@ -1,3 +1,7 @@
+# next
+
+* Add support for async
+
 # v0.5.0
 
 * Move to ppxlib (@anuragsoni)

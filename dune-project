@@ -18,4 +18,7 @@
   (dune (>= 2.0))
   (lwt :with-test)
   (lwt_ppx :with-test)
+  (core :with-test)
+  (async :with-test)
+  (core_unix :with-test)
   (ppxlib (>= 0.12.0))))

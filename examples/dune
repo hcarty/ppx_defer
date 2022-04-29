@@ -10,3 +10,10 @@
  (preprocess
   (pps ppx_defer lwt_ppx))
  (libraries lwt.unix))
+
+(test
+  (name ic_async)
+  (modules ic_async)
+  (preprocess
+    (pps ppx_defer ppx_jane))
+  (libraries core async core_unix.command_unix))
