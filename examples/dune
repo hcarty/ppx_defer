@@ -12,8 +12,9 @@
  (libraries lwt.unix))
 
 (test
-  (name ic_async)
-  (modules ic_async)
-  (preprocess
-    (pps ppx_defer ppx_jane))
-  (libraries core async core_unix.command_unix))
+ (name ic_async)
+ (modules ic_async)
+ (enabled_if (= %{os_type} "Unix"))
+ (preprocess
+   (pps ppx_defer ppx_jane))
+ (libraries core async core_unix.command_unix))
