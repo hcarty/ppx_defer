@@ -34,6 +34,18 @@ let make_defer_lwt ~later ~now =
   let loc = now.pexp_loc in
   [%expr Lwt.finalize (fun () -> [%e now]) (fun () -> [%e later])]
 
+let make_defer_async ~later ~now =
+  let loc = now.pexp_loc in
+  [%expr Async_kernel.Monitor.protect (fun () -> [%e now]) ~finally:(fun () -> [%e later])]
+
+let expand_defer generated =
+  let pexp_loc =
+    (* [loc_ghost] tells the compiler and other tools that this is
+       generated code *)
+    { generated.pexp_loc with Location.loc_ghost = true }
+  in
+  { generated with pexp_loc }
+
 class mapper =
   object (_self)
     inherit Ast_traverse.map as super
@@ -44,24 +56,17 @@ class mapper =
           [%defer [%e? later]];
           [%e? now]] ->
         let (later, now) = (super#expression later, super#expression now) in
-        let generated = make_defer ~later ~now in
-        let pexp_loc =
-          (* [loc_ghost] tells the compiler and other tools than this is
-             generated code *)
-          { generated.pexp_loc with Location.loc_ghost = true }
-        in
-        { generated with pexp_loc }
+        expand_defer (make_defer ~later ~now)
       | [%expr
           [%defer.lwt [%e? later]];
           [%e? now]] ->
         let (later, now) = (super#expression later, super#expression now) in
-        let generated = make_defer_lwt ~later ~now in
-        let pexp_loc =
-          (* [loc_ghost] tells the compiler and other tools than this is
-             generated code *)
-          { generated.pexp_loc with Location.loc_ghost = true }
-        in
-        { generated with pexp_loc }
+        expand_defer (make_defer_lwt ~later ~now)
+      | [%expr
+          [%defer.async [%e? later]];
+          [%e? now]] ->
+        let (later, now) = (super#expression later, super#expression now) in
+        expand_defer (make_defer_async ~later ~now)
       | _ -> super#expression expr
   end
 

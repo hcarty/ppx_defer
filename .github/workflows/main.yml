@@ -5,32 +5,56 @@ on:
   - pull_request
 
 jobs:
-  build:
-    name: Build and test
-
+  build-ubuntu:
+    name: Test on Ubuntu
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ocaml-version:
+          - 4.14.x
+          - 4.13.x
+          - 4.12.x
+          - 4.11.x
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use OCaml ${{ matrix.ocaml-version }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-version }}
+          dune-cache: true
+          opam-depext: true
+          opam-depext-flags: --with-test
+      - run: opam install . --deps-only --with-test
+      - run: opam install core async core_unix
+      - run: opam exec -- dune runtest
+  build-macos-windows:
+    name: Test on macOS and Windows
     strategy:
       fail-fast: false
       matrix:
         os:
           - macos-latest
-          - ubuntu-latest
           - windows-latest
         ocaml-version:
           - 4.14.x
-          - 4.11.x
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
       - name: Use OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
-          dune-cache: ${{ matrix.os != 'macos-latest' }}
+          dune-cache: false
           opam-depext: true
           opam-depext-flags: --with-test
       - run: opam install . --deps-only --with-test
+      - name: Install core and async
+        if: matrix.os ==  'macos-latest'
+        run: |
+          opam install core async core_unix
       - run: opam exec -- dune runtest
